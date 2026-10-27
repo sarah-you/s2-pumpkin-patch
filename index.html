@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    />
+    <title>S2 Pumpkin Patch</title>
+    <style>
+      :root {
+        --green: #f4a34d;
+        --gold: #ffcb87;
+        --ink: #24190f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(
+          ellipse at 50% 32%,
+          #5c3925 0%,
+          #30231f 45%,
+          #1e1c1a 90%
+        );
+        color: #f4eee3;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        min-height: 100vh;
+      }
+      main {
+        max-width: 1120px;
+        margin: auto;
+        padding: 44px 24px 30px;
+        text-align: center;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      h1 {
+        font-family: Georgia, serif;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        font-size: clamp(36px, 5vw, 62px);
+        margin: 12px 0 8px;
+      }
+      .sub {
+        color: #f3cda5;
+        font-size: 14px;
+        margin: 0;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.85fr);
+        gap: 30px;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .scene {
+        height: 490px;
+        position: relative;
+        overflow: hidden;
+      }
+      .halo {
+        position: absolute;
+        width: 420px;
+        height: 320px;
+        left: 50%;
+        top: 95px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(ellipse, #ffa54b33, transparent 70%);
+        filter: blur(10px);
+      }
+      .ground {
+        position: absolute;
+        width: 430px;
+        height: 35px;
+        bottom: 37px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: #0009;
+        filter: blur(14px);
+      }
+      .cauldron {
+        position: absolute;
+        width: 390px;
+        height: 285px;
+        left: 50%;
+        top: 143px;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 18px 14px #0009);
+        transform-origin: 50% 70%;
+      }
+      .body {
+        position: absolute;
+        left: 35px;
+        top: 61px;
+        width: 320px;
+        height: 213px;
+        background: linear-gradient(
+          95deg,
+          #080b0e,
+          #2b3031 24%,
+          #101517 57%,
+          #030506
+        );
+        border-radius: 20% 20% 47% 47% / 15% 15% 72% 72%;
+        border: 2px solid #414849;
+        box-shadow:
+          inset -28px -10px 30px #000b,
+          inset 16px 0 26px #77837b18;
+      }
+      .rim {
+        position: absolute;
+        left: 17px;
+        top: 35px;
+        width: 356px;
+        height: 91px;
+        border-radius: 50%;
+        background: linear-gradient(#353c3b, #090d0d);
+        border: 8px solid #323a38;
+        box-shadow: 0 7px 7px #0009;
+        z-index: 3;
+      }
+      .potion {
+        position: absolute;
+        inset: 11px 12px 12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          ellipse at 45% 43%,
+          #ffe0a0,
+          #f7a640 42%,
+          #ce6b25 75%,
+          #843e20
+        );
+        box-shadow:
+          inset 0 0 20px #9b4c19,
+          0 0 28px #ffb0487a;
+        overflow: hidden;
+      }
+      .potion:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-radial-gradient(
+          ellipse at 50% 45%,
+          transparent 0 19px,
+          #fff2c93a 21px 23px,
+          transparent 25px 45px
+        );
+        animation: swirl 6s linear infinite;
+      }
+      .bubble {
+        position: absolute;
+        border: 1px solid #fff2d2cc;
+        border-radius: 50%;
+        background: #fff0ba55;
+        animation: bubble 3s ease-in-out infinite;
+      }
+      .b1 {
+        width: 18px;
+        height: 11px;
+        left: 24%;
+        top: 42%;
+      }
+      .b2 {
+        width: 11px;
+        height: 8px;
+        left: 63%;
+        top: 31%;
+        animation-delay: -1s;
+      }
+      .b3 {
+        width: 24px;
+        height: 14px;
+        left: 72%;
+        top: 62%;
+        animation-delay: -2s;
+      }
+      .b4 {
+        width: 9px;
+        height: 7px;
+        left: 43%;
+        top: 72%;
+        animation-delay: -1.5s;
+      }
+      .handle {
+        position: absolute;
+        top: 100px;
+        width: 54px;
+        height: 72px;
+        border: 13px solid #303738;
+        border-radius: 50%;
+        z-index: 0;
+      }
+      .handle.left {
+        left: 0;
+      }
+      .handle.right {
+        right: 0;
+      }
+      .foot {
+        position: absolute;
+        bottom: 0;
+        width: 65px;
+        height: 34px;
+        background: #0c1011;
+        border-radius: 10px;
+        z-index: -1;
+      }
+      .foot.left {
+        left: 80px;
+        transform: rotate(16deg);
+      }
+      .foot.right {
+        right: 80px;
+        transform: rotate(-16deg);
+      }
+      .steam {
+        position: absolute;
+        left: 50%;
+        top: 65px;
+        width: 160px;
+        height: 120px;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+      .wisp {
+        position: absolute;
+        bottom: 0;
+        width: 38px;
+        height: 95px;
+        border-left: 8px solid #ffe4ac70;
+        border-radius: 50%;
+        filter: blur(7px);
+        animation: rise 4s ease-in-out infinite;
+      }
+      .wisp:nth-child(1) {
+        left: 25px;
+      }
+      .wisp:nth-child(2) {
+        left: 80px;
+        animation-delay: -1.5s;
+      }
+      .wisp:nth-child(3) {
+        left: 125px;
+        animation-delay: -2.8s;
+      }
+      .fire {
+        position: absolute;
+        left: 50%;
+        bottom: 34px;
+        transform: translateX(-50%);
+        width: 255px;
+        height: 130px;
+        filter: drop-shadow(0 0 24px #e46a3066);
+      }
+      .flame {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 85px;
+        height: 110px;
+        transform: translateX(-50%);
+        background: linear-gradient(#f7c57a, #e27839 50%, #6c251a);
+        clip-path: polygon(
+          50% 0,
+          65% 30%,
+          85% 12%,
+          82% 48%,
+          100% 74%,
+          75% 100%,
+          24% 100%,
+          0 73%,
+          18% 46%,
+          25% 18%,
+          39% 38%
+        );
+        animation: flicker 1.1s ease-in-out infinite alternate;
+      }
+      .flame:nth-child(2) {
+        left: 26%;
+        height: 78px;
+        width: 72px;
+        animation-delay: -0.5s;
+      }
+      .flame:nth-child(3) {
+        left: 74%;
+        height: 82px;
+        width: 72px;
+        animation-delay: -0.8s;
+      }
+      .logs {
+        position: absolute;
+        left: 50%;
+        bottom: 35px;
+        transform: translateX(-50%);
+        width: 260px;
+        height: 12px;
+        background: #30241f;
+        border: 2px solid #604333;
+        border-radius: 20px;
+        box-shadow: 0 10px 0 #211a17;
+      }
+      .panel {
+        background: #392a25d9;
+        border: 1px solid #a9774d66;
+        border-radius: 16px;
+        padding: 26px;
+        text-align: left;
+        box-shadow: 0 20px 60px #0004;
+      }
+      .panel h2 {
+        font-family: Georgia, serif;
+        font-size: 23px;
+        font-weight: 400;
+        margin: 0 0 8px;
+      }
+      .hint {
+        font-size: 12px;
+        color: #e5cdb5;
+        line-height: 1.6;
+        margin: 0 0 14px;
+      }
+      textarea {
+        width: 100%;
+        height: 160px;
+        resize: vertical;
+        background: #0d1213;
+        border: 1px solid #465449;
+        color: #f3f2e9;
+        border-radius: 9px;
+        padding: 13px;
+        font: 14px/1.8 inherit;
+        outline: none;
+      }
+      textarea:focus {
+        border-color: #9cdda5;
+      }
+      .count {
+        font-size: 12px;
+        color: #e9c7a1;
+        margin: 9px 0 17px;
+      }
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 15px 20px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      #draw {
+        width: 100%;
+        background: linear-gradient(120deg, #ffd58b, #f59a40);
+        color: #40230e;
+        box-shadow: 0 5px 25px #ffab5633;
+      }
+      #draw:hover {
+        filter: brightness(1.08);
+      }
+      #draw:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 11px;
+      }
+      .actions button {
+        flex: 1;
+        background: #51382c;
+        color: #ffe3c1;
+        border: 1px solid #956544;
+        font-size: 10px;
+        padding: 11px;
+      }
+      .winner {
+        position: absolute;
+        z-index: 6;
+        top: 150px;
+        left: 50%;
+        transform: translate(-50%, 15px) scale(0.9);
+        width: min(330px, 85%);
+        padding: 16px 18px;
+        background: #5a311def;
+        border: 1px solid #ffcb87bb;
+        box-shadow: 0 0 40px #ffad5466;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.6s ease;
+      }
+      .winner.show {
+        opacity: 1;
+        transform: translate(-50%, -50px) scale(1);
+      }
+      .winner small {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #ffce8b;
+        font-size: 10px;
+      }
+      .winner strong {
+        display: block;
+        margin-top: 7px;
+        font:
+          normal 30px Georgia,
+          serif;
+        overflow-wrap: anywhere;
+      }
+      .drawing .cauldron {
+        animation: shake 0.14s linear infinite;
+      }
+      .drawing .potion {
+        filter: brightness(1.35);
+      }
+      .drawing .halo {
+        background: radial-gradient(ellipse, #ffac5266, transparent 70%);
+      }
+      .pumpkin-icon {
+        font-size: 11px;
+        letter-spacing: 0.19em;
+        color: #ffbd75;
+        margin-bottom: 14px;
+        font-weight: 700;
+      }
+      .panel {
+        text-align: center;
+      }
+      .panel h2 {
+        font-size: 30px;
+      }
+      .panel .hint {
+        font-size: 14px;
+      }
+      .panel #draw {
+        margin-top: 20px;
+      }
+      footer {
+        font-size: 11px;
+        color: #728078;
+        margin-top: 16px;
+        letter-spacing: 0.12em;
+      }
+      @keyframes bubble {
+        0%,
+        100% {
+          transform: scale(0.5);
+          opacity: 0.1;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 1;
+        }
+      }
+      @keyframes rise {
+        0% {
+          transform: translateY(35px) rotate(-10deg);
+          opacity: 0;
+        }
+        40% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-70px) rotate(20deg);
+          opacity: 0;
+        }
+      }
+      @keyframes flicker {
+        from {
+          transform: translateX(-50%) scale(0.9) rotate(-4deg);
+        }
+        to {
+          transform: translateX(-50%) scale(1.06) rotate(4deg);
+        }
+      }
+      @keyframes swirl {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes shake {
+        0% {
+          transform: translateX(calc(-50% - 3px)) rotate(-1deg);
+        }
+        50% {
+          transform: translateX(calc(-50% + 3px)) rotate(1deg);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      @media (max-width: 800px) {
+        .layout {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+        .scene {
+          height: 455px;
+        }
+        .panel {
+          max-width: 500px;
+          margin: auto;
+          width: 100%;
+        }
+        main {
+          padding-top: 28px;
+        }
+      }
+      @media (max-width: 450px) {
+        .scene {
+          transform: scale(0.82);
+          transform-origin: top center;
+          margin-bottom: -75px;
+        }
+        .panel {
+          padding: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .wisp,
+        .bubble,
+        .flame,
+        .potion:before,
+        .drawing .cauldron {
+          animation: none !important;
+        }
+      }
+
+      /* Open layout with pumpkin friends surrounding the cauldron */
+      .layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 12px;
+      }
+      .scene {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+        height: 475px;
+        overflow: visible;
+      }
+      .draw-controls {
+        width: min(430px, 100%);
+        margin: -4px auto 0;
+        text-align: center;
+        position: relative;
+        z-index: 8;
+      }
+      .draw-controls #draw {
+        width: 100%;
+        margin: 0;
+        background: linear-gradient(120deg, #ffd58b, #f59a40);
+        color: #40230e;
+        box-shadow: 0 5px 25px #ffab5633;
+      }
+      .draw-controls .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .draw-controls .actions button {
+        flex: 1;
+        background: #51382c;
+        color: #ffe3c1;
+        border: 1px solid #956544;
+        font-size: 11px;
+        padding: 12px;
+      }
+      .draw-controls #count {
+        color: #e9c7a1;
+        font-size: 12px;
+      }
+      .pumpkin-group {
+        position: absolute;
+        bottom: 49px;
+        width: 160px;
+        height: 155px;
+        z-index: 5;
+        pointer-events: none;
+        animation: pumpkin-bob 4s ease-in-out infinite;
+      }
+      .pumpkin-left {
+        left: 5%;
+      }
+      .pumpkin-right {
+        right: 5%;
+        animation-delay: -2s;
+      }
+      .pumpkin {
+        position: absolute;
+        border-radius: 44% 44% 46% 46%;
+        background: repeating-linear-gradient(
+          90deg,
+          #c75c20 0%,
+          #f38b32 19%,
+          #ffac45 34%,
+          #dd6d26 51%,
+          #f69a38 70%,
+          #bc521b 100%
+        );
+        border: 2px solid #a84d20;
+        box-shadow:
+          inset -12px -10px 18px #87361066,
+          0 13px 20px #0007;
+      }
+      .pumpkin.p-large {
+        width: 118px;
+        height: 102px;
+        left: 0;
+        bottom: 0;
+      }
+      .pumpkin.p-small {
+        width: 76px;
+        height: 67px;
+        right: 0;
+        bottom: -5px;
+        filter: brightness(1.08);
+      }
+      .pumpkin .stem {
+        position: absolute;
+        width: 15px;
+        height: 23px;
+        left: calc(50% - 7px);
+        top: -17px;
+        border-radius: 5px 5px 2px 2px;
+        background: linear-gradient(90deg, #45613b, #76904a, #314a31);
+        transform: rotate(-12deg);
+      }
+      .pumpkin .eye {
+        position: absolute;
+        top: 35%;
+        width: 10%;
+        height: 12%;
+        background: #57301e;
+        border-radius: 50%;
+      }
+      .pumpkin .e-left {
+        left: 30%;
+      }
+      .pumpkin .e-right {
+        right: 30%;
+      }
+      .pumpkin .smile {
+        position: absolute;
+        left: 35%;
+        top: 48%;
+        width: 30%;
+        height: 20%;
+        border-bottom: 4px solid #57301e;
+        border-radius: 0 0 60% 60%;
+      }
+      .pumpkin.p-small .smile {
+        border-bottom-width: 3px;
+      }
+      .pumpkin-right .p-large {
+        left: auto;
+        right: 0;
+      }
+      .pumpkin-right .p-small {
+        right: auto;
+        left: 0;
+      }
+      @keyframes pumpkin-bob {
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+      @media (max-width: 750px) {
+        .pumpkin-left {
+          left: 0;
+        }
+        .pumpkin-right {
+          right: 0;
+        }
+        .pumpkin-group {
+          transform: scale(0.72);
+          transform-origin: bottom center;
+          animation: none;
+        }
+        .scene {
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 520px) {
+        .scene {
+          height: 390px;
+          transform: none;
+          margin-bottom: 0;
+        }
+        .cauldron {
+          transform: translateX(-50%) scale(0.78);
+          transform-origin: top center;
+          top: 125px;
+        }
+        .fire {
+          bottom: 30px;
+        }
+        .steam {
+          top: 50px;
+        }
+        .pumpkin-group {
+          bottom: 35px;
+          transform: scale(0.55);
+        }
+        .pumpkin-left {
+          left: -38px;
+        }
+        .pumpkin-right {
+          right: -38px;
+        }
+        .winner {
+          top: 145px;
+        }
+        .draw-controls {
+          margin-top: 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pumpkin-group {
+          animation: none;
+        }
+      }
+    </style>
+    <style>
+      /* Standalone, embed-safe layout refinements */
+      .s2-pumpkin-patch {
+        isolation: isolate;
+      }
+      .sub {
+        max-width: 680px;
+        margin: 0 auto;
+        line-height: 1.7;
+        font-size: clamp(14px, 1.7vw, 17px);
+      }
+      .layout {
+        display: block;
+        margin-top: 12px;
+      }
+      .scene {
+        max-width: 850px;
+        margin: auto;
+      }
+      .draw-controls {
+        max-width: 340px;
+        margin: -4px auto 0;
+        text-align: center;
+      }
+      #draw {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        border: 1px solid #ffe0a2;
+        border-radius: 999px;
+        min-height: 58px;
+        font-size: 14px;
+        box-shadow: 0 7px 26px #f59a4040;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      #draw:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 38px #ffc66d80;
+      }
+      #draw::before {
+        content: "";
+        position: absolute;
+        inset: -70% auto -70% -55%;
+        width: 34%;
+        transform: rotate(25deg);
+        background: linear-gradient(90deg, transparent, #fff9e6cc, transparent);
+        transition: left 0.65s ease;
+        pointer-events: none;
+      }
+      #draw:hover::before {
+        left: 130%;
+      }
+      #draw::after {
+        content: "✦  ✧  ✦";
+        position: absolute;
+        top: 4px;
+        right: 10px;
+        color: #fff7c4;
+        opacity: 0;
+        letter-spacing: 6px;
+        pointer-events: none;
+      }
+      #draw:hover::after {
+        opacity: 1;
+        animation: magic-sparkle 1s ease-in-out infinite alternate;
+      }
+      @keyframes magic-sparkle {
+        to {
+          opacity: 0.25;
+          transform: translateY(8px) scale(1.2);
+        }
+      }
+      .creative-line {
+        display: inline-block;
+        margin-top: 4px;
+        font-weight: 700;
+        color: #f9bd74;
+        letter-spacing: 0.025em;
+      }
+      @media (max-width: 650px) {
+        .sub {
+          padding: 0 10px;
+        }
+        .draw-controls {
+          margin-top: 5px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #draw:hover::after {
+          animation: none;
+        }
+        #draw::before {
+          transition: none;
+        }
+      }
+    </style>
+    <style>
+      .player-checkin {
+        width: min(390px, 100%);
+        margin: 8px auto 16px;
+        text-align: left;
+      }
+      .player-checkin label {
+        display: block;
+        color: #ffe0b9;
+        font-size: 13px;
+        font-weight: 650;
+        margin-bottom: 9px;
+      }
+      .player-checkin input {
+        width: 100%;
+        padding: 15px 17px;
+        border-radius: 10px;
+        background: #211b19;
+        border: 1px solid #bd855a;
+        color: #fff2df;
+        font: inherit;
+        font-size: 15px;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .player-checkin input:focus {
+        border-color: #ffcc85;
+        box-shadow: 0 0 0 3px #ffcb8730;
+      }
+      .player-checkin input:disabled {
+        opacity: 0.7;
+      }
+      .player-checkin .checkin-note {
+        font-size: 12px;
+        color: #e5c4a2;
+        line-height: 1.5;
+        margin: 8px 0 0;
+      }
+      #draw:disabled {
+        cursor: not-allowed;
+      }
+      #count {
+        min-height: 24px;
+        line-height: 1.6;
+      }
+      @media (max-width: 520px) {
+        .player-checkin {
+          padding: 0 8px;
+        }
+      }
+    </style>
+  </head>
+  <body
+    ><main
+      ><div class="eyebrow">Simple Science Fall 2026 celebration</div
+      ><h1>S2 Pumpkin Patch</h1
+      ><p class="sub"
+        >Submit your full name and click Trick or Treat to draw a name. <br/>
+        Paint the person you drew or something about the person on your
+        pumpkin!<br /><span class="creative-line">Be creative!</span></p
+      ><div class="layout"
+        ><section
+          class="scene"
+          id="scene"
+          aria-label="Animated cauldron with bubbling pumpkin-orange potion"
+          ><div class="halo"></div><div class="ground"></div
+          ><div class="fire"
+            ><div class="flame"></div><div class="flame"></div
+            ><div class="flame"></div></div
+          ><div class="logs"></div
+          ><div class="steam"
+            ><div class="wisp"></div><div class="wisp"></div
+            ><div class="wisp"></div></div
+          ><div class="cauldron"
+            ><div class="handle left"></div><div class="handle right"></div
+            ><div class="foot left"></div><div class="foot right"></div
+            ><div class="body"></div
+            ><div class="rim"
+              ><div class="potion"
+                ><i class="bubble b1"></i><i class="bubble b2"></i
+                ><i class="bubble b3"></i><i class="bubble b4"></i></div></div
+          ></div>
+          <div class="pumpkin-group pumpkin-left" aria-hidden="true"
+            ><div class="pumpkin p-large"
+              ><span class="stem"></span><span class="eye e-left"></span
+              ><span class="eye e-right"></span><span class="smile"></span></div
+            ><div class="pumpkin p-small"
+              ><span class="stem"></span><span class="eye e-left"></span
+              ><span class="eye e-right"></span><span class="smile"></span></div
+          ></div>
+          <div class="pumpkin-group pumpkin-right" aria-hidden="true"
+            ><div class="pumpkin p-large"
+              ><span class="stem"></span><span class="eye e-left"></span
+              ><span class="eye e-right"></span><span class="smile"></span></div
+            ><div class="pumpkin p-small"
+              ><span class="stem"></span><span class="eye e-left"></span
+              ><span class="eye e-right"></span><span class="smile"></span></div
+          ></div>
+          <div class="winner" id="winner" role="status" aria-live="polite"
+            ><small>Your pumpkin portrait is…</small
+            ><strong id="winnerName"></strong></div></section
+        ><section class="draw-controls"
+          ><div class="player-checkin"
+            ><label for="playerName">Enter your full name</label
+            ><input
+              id="playerName"
+              type="text"
+              autocomplete="name"
+              maxlength="150"
+              placeholder="First and last name"
+              aria-describedby="playerNote"
+            /><p class="checkin-note" id="playerNote"
+              >Please use the same full name listed on the participant sign-up.</p
+            ></div
+          ><button id="draw" type="button"><span>Trick or Treat</span></button
+          ><p
+            class="hint"
+            id="count"
+            role="status"
+            aria-live="polite"
+            style="margin: 16px 0 0; text-align: center"
+          ></p></section></div></main
+    ><script>
+      /*
+  SETUP: Replace YOUR_PROJECT_REF with the project reference shown in
+  Supabase > Project Settings > General. Keep /rapid-endpoint unless you
+  created a new Edge Function with a different slug.
+  This is a PUBLIC Edge Function URL. Never add a service-role/secret key here.
+*/
+      const DRAW_API_URL =
+        "https://wqfceafgcopgeltddupd.supabase.co/functions/v1/rapid-endpoint";
+      const drawButton = document.getElementById("draw");
+      const count = document.getElementById("count");
+      const scene = document.getElementById("scene");
+      const winner = document.getElementById("winner");
+      const winnerName = document.getElementById("winnerName");
+      const playerName = document.getElementById("playerName");
+      const drawLabel = drawButton.querySelector("span");
+      let busy = false;
+      let completedOnThisPage = false;
+
+      function cleanName(value) {
+        return value.trim().replace(/\\s+/g, " ");
+      }
+
+      async function requestName(fullName) {
+        if (DRAW_API_URL.includes("YOUR_PROJECT_REF")) {
+          throw new Error(
+            "Setup needed: add your Supabase project URL in DRAW_API_URL.",
+          );
+        }
+        const response = await fetch(DRAW_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fullName }),
+        });
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error("The draw service returned an invalid response.");
+        }
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to draw. Please try again.");
+        }
+        switch (data.status) {
+          case "success":
+          case "already_drawn":
+            if (typeof data.name !== "string" || !data.name.trim()) {
+              throw new Error("The draw service returned an invalid name.");
+            }
+            return { name: data.name.trim(), status: data.status };
+          case "not_found":
+            throw new Error(
+              "We couldn't find that name. Please use your full sign-up name.",
+            );
+          case "ambiguous_name":
+            throw new Error(
+              "More than one participant has that name. Please contact the organizer.",
+            );
+          case "no_names_left":
+            throw new Error(
+              "No eligible names are available. Please contact the organizer.",
+            );
+          default:
+            throw new Error(
+              "Unexpected draw response. Please contact the organizer.",
+            );
+        }
+      }
+
+      drawButton.addEventListener("click", async () => {
+        if (busy || completedOnThisPage) return;
+        const fullName = cleanName(playerName.value);
+        if (fullName.length < 2) {
+          count.textContent = "Please enter your full name first.";
+          playerName.focus();
+          return;
+        }
+        busy = true;
+        drawButton.disabled = true;
+        playerName.disabled = true;
+        drawLabel.textContent = "Mixing the magic…";
+        count.textContent = "";
+        winner.classList.remove("show");
+        scene.classList.add("drawing");
+        try {
+          const [result] = await Promise.all([
+            requestName(fullName),
+            new Promise((resolve) => setTimeout(resolve, 2000)),
+          ]);
+          winnerName.textContent = result.name;
+          winner.classList.add("show");
+          completedOnThisPage = true;
+          drawLabel.textContent = "Name revealed!";
+          count.textContent =
+            result.status === "already_drawn"
+              ? "This is your original draw. Time to paint your pumpkin!"
+              : "Time to paint your pumpkin!";
+        } catch (error) {
+          count.textContent =
+            error.message || "Something went wrong. Please try again.";
+          drawLabel.textContent = "Trick or Treat";
+          drawButton.disabled = false;
+          playerName.disabled = false;
+        } finally {
+          scene.classList.remove("drawing");
+          busy = false;
+        }
+      });
+      playerName.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") drawButton.click();
+      });
+    </script></body
+  ></html
+>
